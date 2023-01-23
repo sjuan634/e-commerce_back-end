@@ -1,5 +1,6 @@
 // import important parts of sequelize library
 const { Model, DataTypes } = require('sequelize');
+const { validate } = require('../../../UCLA-VIRT-FSF-PT-10-2022-U-LOLC/13-ORM/01-Activities/18-Stu_Hooks/Solved/config/connection');
 // import our database connection from config.js
 const sequelize = require('../config/connection');
 
@@ -17,7 +18,10 @@ Product.init(
     },
     product_name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isAlpha: true
+      }
     },
     price: {
       type: DataTypes.DECIMAL,
