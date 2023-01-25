@@ -127,7 +127,20 @@ router.put('/:id', async (req, res) => {
         ProductTag.bulkCreate(newProductTags),
       ]);
 
-      res.status(200).json(product);
+      const updatedProduct = await Product.findByPk(req.params.id, {
+      include: [{
+        model: Category,
+        attributes: ['category_name']
+      },{
+        model: Tag,
+        through: {
+          attributes: []
+        },
+        attributes: ['tag_name']
+      }]
+    });
+
+      res.status(200).json(updatedProduct);
     }
   } catch (err) {
     console.log(err);
